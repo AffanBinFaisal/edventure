@@ -1,0 +1,46 @@
+<!-- courses.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Courses</title>
+  <style>
+    /* Add your styling for the cards here */
+    .course-card {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin: 10px;
+      width: 300px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Available Courses</h1>
+
+  <% if (courses.length> 0) { %>
+    <div>
+      <% courses.forEach(course=> { %>
+
+        <div class="course-card">
+          <a href="/courses/<%= course._id %>">
+          <h2>
+            <%= course.title %>
+          </h2>
+          <p>Price: $<%= course.price %>
+          </p>
+          </a>
+        </div>
+        <% }); %>
+    </div>
+    <% } else { %>
+      <p>No courses available.</p>
+      <% } %>
+
+</body>
+
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Upload Example</title>
+  <style>
+    fieldset {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Edit Course</h1>
+  <form action="/edit-course/<%=course._id%>" method="post" enctype="multipart/form-data" id="editForm">
+    <label for="title">Updated Title:</label>
+    <input type="text" name="title" id="title" placeholder="Updated Title" value="<%=course.title%>" required />
+
+    <label for="price">Updated Price:</label>
+    <input type="number" name="price" id="price" placeholder="Updated Price" value="<%=course.price%>" required />
+
+    <div id="chaptersContainer">
+      <% course.chapters.forEach((chapter, chapterIndex)=> {%>
+        <fieldset>
+          <legend>Chapter <%=chapterIndex+1%>
+          </legend>
+          <label for="chapter<%=chapterIndex%>Title">Chapter <%=chapterIndex + 1%> Title:</label>
+          <input type="text" name="chapters[<%=chapterIndex%>][title]" id="chapter<%=chapterIndex%>Title"
+            placeholder="Chapter <%=chapterIndex+1%> Title" value="<%=chapter.title%>" required="">
+          <div id="videosContainer<%=chapterIndex%>">
+            <% chapter.videos.forEach((video, videoIndex)=>{%>
+              <div>
+                <label for="video<%=chapterIndex%>-<%=videoIndex%>Title">Video <%=videoIndex + 1%> Title:</label>
+                <input type="text" name="chapters[<%=chapterIndex%>][videos][<%=videoIndex%>][title]"
+                  id="video<%=chapterIndex%>-<%=videoIndex%>Title" value="<%=video.title%>" required="">
+                <input type="file" name="chapters[<%=chapterIndex%>][videos][<%=videoIndex%>][files][]">
+              </div>
+              <%})%>
+          </div>
+          <button type="button" onclick="addVideo(<%=chapterIndex%>)">Add Video</button>
+        </fieldset>
+        <%})%>
+    </div>
+
+    <button type="button" onclick="addChapter()">Add Chapter</button>
+    <button type="submit">Save</button>
+  </form>
+  <script>
+    function addChapter() {
+      const chaptersContainer = document.getElementById('chaptersContainer');
+      const chapterIndex = chaptersContainer.children.length;
+
+      const fieldset = document.createElement('fieldset');
+      fieldset.innerHTML = `
+        <legend>Chapter ${chapterIndex + 1}</legend>
+        <label for="chapter${chapterIndex}Title">Chapter ${chapterIndex + 1} Title:</label>
+        <input type="text" name="chapters[${chapterIndex}][title]" id="chapter${chapterIndex}Title" placeholder="Chapter ${chapterIndex + 1} Title" required />
+
+        <div id="videosContainer${chapterIndex}">
+          <!-- Videos will be added here dynamically -->
+        </div>
+
+        <button type="button" onclick="addVideo(${chapterIndex})">Add Video</button>
+      `;
+      chaptersContainer.appendChild(fieldset);
+    }
+
+    function addVideo(chapterIndex) {
+      const videosContainer = document.getElementById(`videosContainer${chapterIndex}`);
+      const videoIndex = videosContainer.children.length;
+
+      const div = document.createElement('div');
+      div.innerHTML = `
+        <label for="video${chapterIndex}-${videoIndex}Title">Video ${videoIndex + 1} Title:</label>
+        <input type="text" name="chapters[${chapterIndex}][videos][${videoIndex}][title]" id="video${chapterIndex}-${videoIndex}Title" required />
+        <input type="file" name="chapters[${chapterIndex}][videos][${videoIndex}][files][]" required />
+      `;
+      videosContainer.appendChild(div);
+    }
+  </script>
+</body>
+
+</html>
