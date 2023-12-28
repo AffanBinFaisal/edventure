@@ -28,11 +28,15 @@
 
         <div class="course-card">
           <a href="/courses/<%= course._id %>">
-          <h2>
-            <%= course.title %>
-          </h2>
-          <p>Price: $<%= course.price %>
-          </p>
+            <img src="/<%=course.thumbnail%>"/>
+            <h2>
+              <%= course.title %>
+            </h2>
+            <p>Price: $<%= course.price %>
+            </p>
+            <p>
+              <%= course.description %>
+            </p>
           </a>
         </div>
         <% }); %>

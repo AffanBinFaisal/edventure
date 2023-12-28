@@ -13,9 +13,11 @@ const chapterSchema = new mongoose.Schema({
 });
 
 const courseSchema = new mongoose.Schema({
+  author: String,
   title: String,
   price: Number,
   description: String,
+  thumbnail: String,
   chapters: [chapterSchema]
 });
 

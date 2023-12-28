@@ -30,14 +30,16 @@
           <input type="text" name="chapters[<%=chapterIndex%>][title]" id="chapter<%=chapterIndex%>Title"
             placeholder="Chapter <%=chapterIndex+1%> Title" value="<%=chapter.title%>" required="">
           <div id="videosContainer<%=chapterIndex%>">
-            <% chapter.videos.forEach((video, videoIndex)=>{%>
-              <div>
-                <label for="video<%=chapterIndex%>-<%=videoIndex%>Title">Video <%=videoIndex + 1%> Title:</label>
-                <input type="text" name="chapters[<%=chapterIndex%>][videos][<%=videoIndex%>][title]"
-                  id="video<%=chapterIndex%>-<%=videoIndex%>Title" value="<%=video.title%>" required="">
-                <input type="file" name="chapters[<%=chapterIndex%>][videos][<%=videoIndex%>][files][]">
-              </div>
-              <%})%>
+            <%if(chapter.videos && chapter.videos.length> 0){%>
+              <% chapter.videos.forEach((video, videoIndex)=>{%>
+                <div>
+                  <label for="video<%=chapterIndex%>-<%=videoIndex%>Title">Video <%=videoIndex + 1%> Title:</label>
+                  <input type="text" name="chapters[<%=chapterIndex%>][videos][<%=videoIndex%>][title]"
+                    id="video<%=chapterIndex%>-<%=videoIndex%>Title" value="<%=video.title%>" required="">
+                  <input type="file" name="chapters[<%=chapterIndex%>][videos][<%=videoIndex%>][files][]">
+                </div>
+                <%})%>
+                  <%}%>
           </div>
           <button type="button" onclick="addVideo(<%=chapterIndex%>)">Add Video</button>
         </fieldset>

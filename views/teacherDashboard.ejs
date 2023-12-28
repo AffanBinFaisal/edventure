@@ -1,0 +1,35 @@
+<html>
+
+<body>
+  <h1>Your Courses</h1>
+
+  <div>
+    <a href="/add-course">Add Course</a>
+  </div>
+
+  <% if (courses.length> 0) { %>
+    <div>
+      <% courses.forEach(course=> { %>
+
+        <div class="course-card">
+          <a href="/courses/<%= course._id %>">
+            <img src="/<%=course.thumbnail%>" />
+            <h2>
+              <%= course.title %>
+            </h2>
+            <p>Price: $<%= course.price %>
+            </p>
+            <p>
+              <%= course.description %>
+            </p>
+            <a href="/edit-course/<%=course._id%>">Edit</a>
+          </a>
+        </div>
+        <% }); %>
+    </div>
+    <% } else { %>
+      <p>No courses available.</p>
+      <% } %>
+</body>
+
+</html>

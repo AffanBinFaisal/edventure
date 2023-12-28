@@ -39,7 +39,6 @@ router.post("/:id", upload.any(), async (req, res) => {
     console.log(files);
 
     const course = await Course.findById(id);
-    console.log(course.chapters[0]);
 
     course.title = title;
     course.price = price;
@@ -48,13 +47,16 @@ router.post("/:id", upload.any(), async (req, res) => {
       const updatedVideos = files
         .filter((file) => file.fieldname.startsWith(`chapters[${chapterIndex}][videos]`))
         .map((file, videoIndex) => ({
-          title: chapter.videos[videoIndex].title,
-          url: file.path || course.chapters[chapterIndex].videos[videoIndex].url,
+          title: Array.isArray(chapter.videos) && chapter.videos[videoIndex] ? chapter.videos[videoIndex].title : "", // Check if chapter.videos is defined and is an array before accessing its elements
+          url: file.path || (Array.isArray(course.chapters[chapterIndex].videos) && course.chapters[chapterIndex].videos[videoIndex] ? course.chapters[chapterIndex].videos[videoIndex].url : ""),
         }));
+
+
+      const oldVideos = (course.chapters && Array.isArray(course.chapters) && course.chapters[chapterIndex] && course.chapters[chapterIndex].videos) ? course.chapters[chapterIndex].videos : null;
 
       return {
         title: chapter.title,
-        videos: updatedVideos.length > 0 ? updatedVideos : course.chapters[chapterIndex].videos,
+        videos: (updatedVideos && updatedVideos.length > 0) ? updatedVideos : oldVideos,
       };
     });
 

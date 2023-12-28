@@ -17,7 +17,7 @@ router.post('/', async (req, res) => {
       // Check if the provided password matches the stored password
       if (user.password === password) {
         req.session.user = { username, password };
-        res.redirect('/dashboard');
+        res.redirect('/home');
       } else {
         res.render('login', { error: 'Invalid password' });
       }

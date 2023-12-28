@@ -9,22 +9,18 @@ const Enrollment = require("./../models/Enrollment");
 // Router
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/learning", async (req, res) => {
   const username = req.session.user.username;
   const enrolledCourses = await Enrollment.find({ username: username }).populate('course');
   console.log(enrolledCourses);
-  res.render("dashboard", { enrolledCourses });
+  res.render("studentDashboard", { enrolledCourses });
 })
 
-router.post("/", async (req, res) => {
-  const enrolledCourse = Enrollment({
-    username: req.body.username,
-    course: req.body.course
-  });
-  const response = await enrolledCourse.save();
-  const id = enrolledCourse._id;
-  res.redirect(`/courses/${id}`);
-});
-
+router.get("/teaching", async (req, res) => {
+  const username = req.session.user.username;
+  const courses = await Course.find({ author: username });
+  console.log(courses);
+  res.render("teacherDashboard", { courses });
+})
 
 module.exports = router;

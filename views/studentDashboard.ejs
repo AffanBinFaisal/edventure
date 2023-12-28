@@ -1,0 +1,16 @@
+<% if (enrolledCourses.length > 0) { %>
+  <h2>Your Enrolled Courses:</h2>
+  <ul>
+    <% enrolledCourses.forEach(enrollment => { %>
+      <li>
+        <strong><%= enrollment.course.title %></strong>
+        <p><%= enrollment.course.price %> USD</p>
+        <div>
+          <a href="/courses/<%= enrollment.course._id %>">View Details</a>
+        </div>
+      </li>
+    <% }); %>
+  </ul>
+<% } else { %>
+  <p>You are not enrolled in any courses yet.</p>
+<% } %>

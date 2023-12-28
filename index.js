@@ -13,6 +13,8 @@ const coursesRouter = require("./routes/courses");
 const addCourseRouter = require("./routes/addCourse");
 const editCourseRouter = require("./routes/editCourse");
 const enrollRouter = require("./routes/enrollment");
+const homeRouter = require("./routes/home");
+const authenticationMiddleware = require("./middlewares/authenticationMiddleware");
 
 // Initializing app
 const app = express();
@@ -25,6 +27,7 @@ app.use(session({
 }));
 
 // Set EJS as the view engine
+app.set('views', path.join(__dirname, 'views'));
 app.set("view engine", "ejs");
 
 // Middleware to parse JSON and URL-encoded data
@@ -32,9 +35,14 @@ app.use(bodyParser.json());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 // Middlewares for routing
 app.use("/login", loginRouter);
 app.use("/register", registerRouter);
+app.use(authenticationMiddleware);
+app.use("/home", homeRouter)
 app.use("/dashboard", dashboardRouter);
 app.use("/courses", coursesRouter);
 app.use("/add-course", addCourseRouter);

@@ -10,10 +10,12 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const user = new User({ username: req.body.username, password: req.body.password });
+  const { username, password } = req.body;
+  const user = new User({ username: username, password: password });
   const response = await user.save();
   //console.log(response);
   //res.status(200).end();
-  res.redirect("/dashboard");
+  req.session.user = { username, password };
+  res.redirect("/home");
 });
 module.exports = router;
