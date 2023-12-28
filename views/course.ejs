@@ -6,108 +6,189 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>
-    <%= course.title %> Details
-  </title>
+  <title><%= course.title %> </title>
   <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f8f8f8;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    header {
+      background-color: #3498db;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .course-details-container {
+      max-width: 800px;
+      margin: 20px auto;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .enroll-button {
+      background-color: #27ae60;
+      color: #fff;
+      padding: 10px 20px;
+      font-size: 18px;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+
+    .enroll-button:hover {
+      background-color: #219653;
+    }
+
     .video-container {
       display: none;
+      margin-top: 20px;
+    }
+
+    video {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 20px;
+    }
+
+
+    h2{
+      font-size: xx-large;
+      color: #2980b9;
+    }
+    h3{
+      font-size: x-large;
+      color: #3498db;
+    }
+
+    h4{
+      font-size: larger;
+    }
+
+    p {
+      color: #555;
+    }
+
+    button {
+      background-color: #3498db;
+      color: #fff;
+      padding: 8px 16px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #2980b9;
     }
   </style>
 </head>
 
 <body>
+  <%-include("navbar.ejs")%>
+  <header>
+    <h1><%= course.title %></h1>
+  </header>
 
-  <h1>
-    <%= course.title %> Details
-  </h1>
+  <div class="course-details-container">
+    <img src="/<%=course.thumbnail%>" alt="<%= course.title %> Thumbnail">
 
-  <img src="/<%=course.thumbnail%>"/>
-
-  <div>
-    <p>Description: <%= course.description %>
-    </p>
-    <p>Price: $<%= course.price %>
-    </p>
-  </div>
-  <%if(enrollment.length==0){%>
     <div>
-      <button onclick="enroll('<%=course._id%>')">Enroll</button>
+      <p><strong>Description:</strong> <%= course.description %></p>
+      <p><strong>Price:</strong> $<%= course.price %></p>
     </div>
-    <%}%>
 
-      <div id="video-container" class="video-container">
-        <video width="100%" height="700" controls>
-          <source type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
+    <% if(enrollment.length === 0) { %>
+      <div>
+        <button class="enroll-button" onclick="enroll('<%=course._id%>')">Enroll</button>
       </div>
+    <% } %>
 
-      <% if (course.chapters.length> 0) { %>
-        <h2>Chapters</h2>
-        <ul>
-          <% course.chapters.forEach(chapter=> { %>
-            <li>
-              <h3>
-                <%= chapter.title %>
-              </h3>
-              <p>
-                <%= chapter.content %>
-              </p>
+    <div id="video-container" class="video-container">
+      <video controls>
+        <source type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
 
-              <!-- Display videos -->
-              <% if (chapter.videos && chapter.videos.length> 0) { %>
-                <ul>
-                  <% chapter.videos.forEach(video=> { %>
-                    <li>
-                      <h4>
-                        <%= video.title %>
-                      </h4>
-                      <p>
-                        <%= video.content %>
-                      </p>
-                      <button onclick="showVideo('<%= video.url %>')">Show Video</button>
-                    </li>
-                    <% }); %>
-                </ul>
-                <% } %>
-            </li>
-            <% }); %>
-        </ul>
-        <% } else { %>
-          <p>No chapters available for this course.</p>
-          <% } %>
+    <% if (course.chapters.length > 0) { %>
+      <h2>Chapters</h2>
+      <ul>
+        <% course.chapters.forEach(chapter => { %>
+          <li>
+            <h3><%= chapter.title %></h3>
 
-            <script>
-              function showVideo(url) {
-                const videoContainer = document.getElementById("video-container");
-                const source = videoContainer.querySelector("video").querySelector("source");
-                source.src = url;
-                videoContainer.style.display = 'block';
-              }
+            <% if (chapter.videos && chapter.videos.length > 0) { %>
+              <ul>
+                <% chapter.videos.forEach(video => { %>
+                  <li>
+                    <h4><%= video.title %></h4>
+                    <button onclick="showVideo('<%= video.url %>')">Show Video</button>
+                  </li>
+                <% }); %>
+              </ul>
+            <% } %>
+          </li>
+        <% }); %>
+      </ul>
+    <% } else { %>
+      <p>No chapters available for this course.</p>
+    <% } %>
+  </div>
 
-              async function enroll(courseId) {
-                try {
-                  const response = await fetch('/enroll', {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ courseId }),
-                  });
+  <script>
+    function showVideo(url) {
+      const videoContainer = document.getElementById("video-container");
+      const source = videoContainer.querySelector("video").querySelector("source");
+      source.src = url;
+      videoContainer.style.display = 'block';
+    }
 
-                  if (response.ok) {
-                    console.log('Enrollment successful!');
-                  } else {
-                    console.error('Enrollment failed:', response.statusText);
-                  }
-                } catch (error) {
-                  console.error('Error during enrollment:', error.message);
-                }
+    async function enroll(courseId) {
+      try {
+        const response = await fetch('/enroll', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ courseId }),
+        });
 
-              }
-            </script>
-
+        if (response.ok) {
+          console.log('Enrollment successful!');
+        } else {
+          console.error('Enrollment failed:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error during enrollment:', error.message);
+      }
+    }
+  </script>
 </body>
 
 </html>

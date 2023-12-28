@@ -6,87 +6,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard</title>
+  <title>Home</title>
   <style>
     body {
-      font-family: 'Arial', sans-serif;
-      background: linear-gradient(to right, #3498db, #2980b9);
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-    }
-
-    header {
-      background-color: #2c3e50;
-      color: #fff;
-      text-align: center;
-      padding: 20px;
     }
 
     section {
-      max-width: 800px;
-      margin: 20px auto;
-      background-color: #ecf0f1;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-    }
-
-    h1, h2, p, ul {
+      background-image: url("/public/assets/home.jpeg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      font-family: 'Arial', sans-serif;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
 
-    h1 {
-      font-size: 32px;
-    }
-
-    h2 {
-      font-size: 24px;
-      margin-top: 20px;
-    }
-
-    p {
-      font-size: 18px;
-      color: #555;
-    }
-
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    li {
-      margin-bottom: 15px;
-      padding: 15px;
-      background-color: #3498db;
+    .search-box {
+      width: 40%;
+      margin: 20px auto;
+      padding: 20px;
       border-radius: 8px;
-      transition: background-color 0.3s ease;
     }
 
-    li:hover {
-      background-color: #2980b9;
-    }
-
-    strong {
-      display: block;
-      font-size: 20px;
-      margin-bottom: 10px;
-    }
-
-    a {
-      color: #fff;
-      text-decoration: none;
-      background-color: #2c3e50;
-      padding: 8px 16px;
-      border-radius: 4px;
-      font-size: 16px;
-      transition: background-color 0.3s ease;
-    }
-
-    a:hover {
-      background-color: #34495e;
-    }
 
     form {
       margin-top: 20px;
@@ -95,17 +43,13 @@
       align-items: center;
     }
 
-    label {
-      font-size: 18px;
-      margin-right: 10px;
-    }
-
     input {
       padding: 10px;
       font-size: 16px;
       border: none;
       border-radius: 4px;
       flex-grow: 1;
+
     }
 
     button {
@@ -122,20 +66,26 @@
     button:hover {
       background-color: #27ae60;
     }
+
+    h1 {
+      font-size: 3rem;
+      text-align: center;
+      color: #fff
+    }
   </style>
 </head>
 
 <body>
-  <header>
-    <h1>Welcome to Your Dashboard</h1>
-  </header>
+  <%- include('navbar.ejs') %>
 
   <section>
-    <form action="/courses" method="GET">
-      <label for="search">Search Courses:</label>
-      <input type="text" id="search" name="search" placeholder="Enter course name">
-      <button type="submit">Search</button>
-    </form>
+    <div id="search-box">
+      <h1>Edventure</h1>
+      <form action="/courses" method="GET">
+        <input type="text" id="search" name="search" placeholder="Enter course name">
+        <button type="submit">Search</button>
+      </form>
+    </div>
   </section>
 
   <!-- Add additional content or customize based on your needs -->

@@ -37,6 +37,8 @@ app.use(express.urlencoded({ extended: true }));
 
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/public/assets', express.static(path.join(__dirname, 'public', 'assets')));
+app.use('/public/css', express.static(path.join(__dirname, 'public', 'css')));
 
 // Middlewares for routing
 app.use("/login", loginRouter);
@@ -52,6 +54,14 @@ app.use("/enroll", enrollRouter);
 // Routes
 app.get("/", (req, res) => {
   res.render("index");
+})
+
+app.get("/contact", (req, res) => {
+  res.sendFile(path.join(__dirname, 'views','contact.html'));
+})
+
+app.get("/about", (req, res) => {
+  res.sendFile(path.join(__dirname, 'views','about.html'));
 })
 
 // Server Listening

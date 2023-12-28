@@ -8,42 +8,88 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Courses</title>
   <style>
-    /* Add your styling for the cards here */
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f8f8f8;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      text-align: center;
+      color: #3498db;
+    }
+
+    .courses-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
     .course-card {
-      border: 1px solid #ccc;
-      padding: 10px;
-      margin: 10px;
+      border: 1px solid #ddd;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin: 20px;
+      padding: 20px;
       width: 300px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .course-card:hover {
+      transform: scale(1.05);
+    }
+
+    .course-card img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .course-card h2 {
+      color: #3498db;
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .course-card p {
+      color: #555;
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+
+    a {
+      text-decoration: none;
+      color: #3498db;
+      font-weight: bold;
     }
   </style>
 </head>
 
 <body>
 
-  <h1>Available Courses</h1>
+  <%-include("navbar.ejs")%>
 
-  <% if (courses.length> 0) { %>
-    <div>
-      <% courses.forEach(course=> { %>
-
+  <% if (courses.length > 0) { %>
+    <div class="courses-container">
+      <% courses.forEach(course => { %>
         <div class="course-card">
           <a href="/courses/<%= course._id %>">
-            <img src="/<%=course.thumbnail%>"/>
-            <h2>
-              <%= course.title %>
-            </h2>
-            <p>Price: $<%= course.price %>
-            </p>
-            <p>
-              <%= course.description %>
-            </p>
+            <img src="/<%= course.thumbnail %>" alt="<%= course.title %> Thumbnail" />
+            <h2><%= course.title %></h2>
+            <p>Price: $<%= course.price %></p>
+            <p><%= course.description %></p>
           </a>
         </div>
-        <% }); %>
+      <% }); %>
     </div>
-    <% } else { %>
-      <p>No courses available.</p>
-      <% } %>
+  <% } else { %>
+    <p>No courses available.</p>
+  <% } %>
 
 </body>
 
