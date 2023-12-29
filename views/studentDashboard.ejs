@@ -61,38 +61,40 @@
     .enrolled-course-card a:hover {
       text-decoration: underline;
     }
+    img{
+      width: 80%;
+      height: 80%;
+    }
   </style>
 </head>
 
 <body>
   <%-include("navbar.ejs")%>
-  <% if (enrolledCourses.length> 0) { %>
-    <h2>Your Enrolled Courses:</h2>
-    <div class="enrolled-courses-container">
-      <% enrolledCourses.forEach(enrollment=> { %>
-        <div class="enrolled-course-card">
-
-          <div>
-
-            <a href="/courses/<%= enrollment.course._id %>">
-              <img src="/<%=enrollment.course.thumbnail%>" />
-              <h3>
-                <%= enrollment.course.title %>
-              </h3>
-              <p>
-                <%= enrollment.course.price %> USD
-              </p>
-              <p>
-                <%= enrollment.course.description%>
-              </p>
-            </a>
+    <% if (enrolledCourses.length> 0) { %>
+      <h2>Your Enrolled Courses:</h2>
+      <div class="enrolled-courses-container">
+        <% enrolledCourses.forEach(enrollment=> { %>
+          <div class="enrolled-course-card">
+            <div>
+              <a href="/courses/<%= enrollment.course._id %>">
+                <img src="/<%=enrollment.course.thumbnail%>" />
+                <h3>
+                  <%= enrollment.course.title %>
+                </h3>
+                <p>
+                  <%= enrollment.course.price %> USD
+                </p>
+                <p>
+                  <%= enrollment.course.description%>
+                </p>
+              </a>
+            </div>
           </div>
-        </div>
-        <% }); %>
-    </div>
-    <% } else { %>
-      <p>You are not enrolled in any courses yet.</p>
-      <% } %>
+          <% }); %>
+      </div>
+      <% } else { %>
+        <p>You are not enrolled in any courses yet.</p>
+        <% } %>
 </body>
 
 </html>

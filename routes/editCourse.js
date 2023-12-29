@@ -63,7 +63,7 @@ router.post("/:id", upload.any(), async (req, res) => {
     console.log('Updated chapters:', course.chapters);
 
     const response = await course.save();
-    res.status(200).end();
+    res.redirect("/dashboard/teaching");
   } catch (error) {
     console.error('Error during course update:', error);
     res.status(500).send('Internal Server Error');
