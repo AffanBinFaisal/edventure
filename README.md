@@ -1,7 +1,5 @@
 # Edventure - Online Learning Platform
 
-![Edventure Logo](public/assets/logo.png)
-
 ## Table of Contents
 1. [Introduction](#1-introduction)
    - [Project Overview](#11-project-overview)
@@ -16,7 +14,6 @@
    - [Running the Application](#32-running-the-application)
 4. [Project Structure](#4-project-structure)
 5. [Contributors](#5-contributors)
-6. [License](#6-license)
 
 ---
 
@@ -163,7 +160,8 @@ This structured approach simplifies code management and enhances collaboration a
 ---
 
 ## 5. Contributors
+ 
+- **Affan Bin Faisal** 
+- **Muhammad Taha Khan**
 
-- **Muhammad Taha Khan** 
-- **Affab Bin Faisal** 
-
+---
