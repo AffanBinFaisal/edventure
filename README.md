@@ -35,8 +35,6 @@ Edventure is an innovative online learning platform that offers a diverse range 
 
 - **Enrollment and Progress Tracking:** Enroll in courses and monitor your progress through intuitive dashboards.
 
-- **Payment Integration:** Easily enroll in premium courses through secure payment methods.
-
 - **User-Friendly Dashboard:** Access enrolled courses and personalized learning journeys with ease.
 
 ---
@@ -82,9 +80,6 @@ Edventure is an innovative online learning platform that offers a diverse range 
 - **express.static Middleware for Serving Static Assets:**
    - Optimizing load times by serving static assets such as images, stylesheets, and scripts.
 
-- **Payment Integration (if applicable):**
-   - Enabling secure online transactions for premium course enrollments.
-
 ---
 
 ## 3. Getting Started
@@ -110,6 +105,8 @@ Edventure is an innovative online learning platform that offers a diverse range 
    npm start
 
 2. Open your web browser and access the application at http://localhost:5000.
+
+---
 
 ## 4. Project Structure
 
