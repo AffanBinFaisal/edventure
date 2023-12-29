@@ -55,9 +55,6 @@ Edventure is an innovative online learning platform that offers a diverse range 
 
 ### 2.2 Frontend Technologies
 
-- **React.js:**
-   - Component-based library for interactive user interfaces and real-time updates.
-
 - **EJS (Embedded JavaScript):**
    - View engine for server-side rendering of dynamic content.
 
